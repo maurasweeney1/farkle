@@ -2,7 +2,7 @@
 
 Individual Farkle assignment repository for CPSC 224 course
 
-- Student:  
+- Student:  Maura Sweeney
 - Semester: Fall 2023
-- Current assignment:
+- Current assignment: Farkle
 
