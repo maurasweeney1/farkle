@@ -79,3 +79,4 @@ public class Die implements Comparable<Die> {
         return this.sideUp.compareTo(otherDie.sideUp);
     }
 }
+

@@ -16,10 +16,9 @@ mvn-run:
 
 run: build
 	@echo "Running Farkle main without maven overhead"
-	java -jar target/yahtzee-*.jar
-
+	java -jar target/farkle-*.jar
 fast-run:
-	java -jar target/yahtzee-*.jar
+	java -jar target/farkle-*.jar
 
 spellcheck:
 	-codespell src/
