@@ -3,9 +3,13 @@ import java.util.ArrayList;
 
 public class Meld {
 
-    Die dieA;
+    private int meldScore;
+    int meld[] = {0, 0, 0, 0, 0, 0, 0};
 
-    ArrayList<Die> dice = new ArrayList<>();
+
+    private ArrayList<Die> dice = new ArrayList<>();
+    private ArrayList<Integer> dieNotUsed = new ArrayList<>();
+
 
     public Meld () {
         System.out.println("Meld created");
@@ -18,5 +22,10 @@ public class Meld {
     
     public Integer size() {
         return dice.size();
+    }
+    
+
+    public void addToDieNotUsed(int value) {
+        dieNotUsed.add(value);
     }
 }
