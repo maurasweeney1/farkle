@@ -18,9 +18,14 @@ import java.util.*;
 public class Farkle {
     // This main is where your Farkle game starts execution for general use.
     public static void main(String[] args) {
+        boolean isAFarkle = false;
         boolean gameOver = false;
-        Combo combo = new Combo();
+        Meld meld = new Meld();
+        Integer numPairs = 0;
         char optChar = 'A';
+        String userChoiceRaw = "";
+        char userChoice = '\0';
+        Scanner input = new Scanner(System.in);
         System.out.println("Hello Farkle");
 
         Die die1 = new Die(6);
@@ -31,25 +36,136 @@ public class Farkle {
         Die die6 = new Die(6);
         System.out.println("Now rolling our die!");
         die1.roll();
-        combo.addToComboArr(die1.getSideUp());
         die2.roll();
-        combo.addToComboArr(die2.getSideUp());
         die3.roll();
-        combo.addToComboArr(die3.getSideUp());
         die4.roll();
-        combo.addToComboArr(die4.getSideUp());
         die5.roll();
-        combo.addToComboArr(die5.getSideUp());
         die6.roll();
-        combo.addToComboArr(die6.getSideUp());
-        ArrayList<Integer> dice =  new ArrayList<Integer>(Arrays.asList(die1.getSideUp(), die2.getSideUp(), die3.getSideUp(), die4.getSideUp(), die5.getSideUp(), die6.getSideUp()));
-        System.out.println("         Hand   Meld\n-----------------------");
+        
+        ArrayList<Integer> dice =  new ArrayList<Integer>(Arrays.asList(0, die1.getSideUp(), die2.getSideUp(), die3.getSideUp(), die4.getSideUp(), die5.getSideUp(), die6.getSideUp()));
         Collections.sort(dice);
-        for (int i = 0; i < dice.size(); i++) {
-            System.out.println((char)(optChar+i) + ")      " + dice.get(i) + "     | ");
+        
+        // check for a farkle
+        if (dice.get(1) != 0 || dice.get(5) != 0) {
+            isAFarkle = false;
         }
-        System.out.println("\nQ)      Quit game\nZ)      Bank meld and end round");
-        System.out.println("\nYou can choose which die to move into your meld based on the option to the left!");
+        else {
+            for (Integer i = 0; i < 7; i++) {
+                if (dice.get(i) >= 3) {
+                    isAFarkle = false;
+                }
+                else if (dice.get(i) == 2) {
+                    numPairs++;
+                }
+            }
+            if (numPairs == 3) {
+                isAFarkle = false;
+            }
+        }
+        // end game if player farkled
+        if (isAFarkle == true) {
+            System.out.println("Oops! You farkled, round is over");
+            gameOver = true;
+        }
 
+        while (gameOver == false) {
+            System.out.println("\n     Hand   Meld\n----------------------");
+            for (Integer i = 1; i < dice.size(); i++) {
+                String diceAti = "";
+                String meldAti = "";
+                if (dice.get(i) == 0) {
+                    diceAti = " ";
+                }
+                else {
+                    diceAti = dice.get(i).toString();
+                }
+                if (meld.returnDie(i) == 0) {
+                    meldAti = " ";
+                }
+                else {
+                    meldAti = meld.returnDie(i).toString();
+                }
+                System.out.println((char)(optChar+i - 1) + ")   " + diceAti + "    |    " + meldAti);
+            }
+            System.out.println("Meld score: " + meld.calculateMeldScore());
+            System.out.println("----------------------\nQ)      Quit game\nZ)      Bank meld and end round");
+            System.out.println("\nYou can choose which die to move into your meld based on the options to the left!");
+
+            userChoiceRaw = input.nextLine();
+            userChoice = ((userChoiceRaw.toUpperCase()).charAt(0));
+
+            switch (userChoice) {
+                case 'A': 
+                    if (dice.get(1) != 0) {
+                        meld.addDie(dice.get(1), 1);
+                        dice.set(1, 0);
+                        break;
+                    }
+                        meld.removeDie(meld.returnDie(1), 1);
+                        dice.set(1, meld.returnDie(1));
+                        break;
+                // move dice after A) to meld
+                case 'B': 
+                    if (dice.get(2) != 0) {
+                        meld.addDie(dice.get(2), 2);
+                        dice.set(2, 0);
+                        break;
+                    }
+                    meld.removeDie(meld.returnDie(2), 2);
+                    dice.set(2, meld.returnDie(2));
+                    break;
+                // move dice after B) to meld
+                case 'C': 
+                    if (dice.get(3) != 0) {
+                        meld.addDie(dice.get(3), 3);
+                        dice.set(3, 0);
+                        break;
+                    }
+                    meld.removeDie(meld.returnDie(3), 3);
+                    dice.set(3, meld.returnDie(3));
+                    break;
+                // move dice after C) to meld
+                case 'D': 
+                    if (dice.get(4) != 0) {
+                        meld.addDie(dice.get(4), 4);
+                        dice.set(4, 0);
+                        break;
+                    }
+                    meld.removeDie(meld.returnDie(4), 4);
+                    dice.set(4, meld.returnDie(4));
+                    break;
+                // move dice after D) to meld
+                case 'E':
+                    if (dice.get(5) != 0) {
+                        meld.addDie(dice.get(5), 5);
+                        dice.set(5, 0);
+                        break;
+                    }
+                    meld.removeDie(meld.returnDie(5), 5);
+                    dice.set(5, meld.returnDie(5));
+                    break;
+                // move dice after E) to meld
+                case 'F':
+                    if (dice.get(6) != 0) {
+                        meld.addDie(dice.get(6), 6);
+                        dice.set(6, 0);
+                        break;
+                    }
+                    meld.removeDie(meld.returnDie(6), 6);
+                    dice.set(6, meld.returnDie(6));
+                    break;
+                // move dice after F) to meld
+                case 'Q': gameOver = true;
+                        System.out.println("End of round, your score is 0");
+                        break;
+                // bank meld and end round
+                case 'Z': gameOver = true;
+                        System.out.println("End of round, your score is " + meld.calculateMeldScore());
+                        break;
+                // quit games
+                default: System.out.println("Invalid choice");
+                        break;
+            }
+        }
     }
 }

@@ -1,31 +1,38 @@
 package edu.gonzaga.Farkle;
-import java.util.ArrayList;
 
 public class Meld {
-
-    private int meldScore;
-    int meld[] = {0, 0, 0, 0, 0, 0, 0};
-
-
-    private ArrayList<Die> dice = new ArrayList<>();
-    private ArrayList<Integer> dieNotUsed = new ArrayList<>();
-
+    private Integer meldScore;
+    private Integer DEFAULT_MELD_SIZE = 7;
+    private Integer meld[] = {0, 0, 0, 0, 0, 0, 0};
+    private Combo combo = new Combo();
 
     public Meld () {
-        System.out.println("Meld created");
-        System.out.println(dice.size());
+        meldScore = 0;
     }
 
-    public void addDie(Die die) {
-        dice.add(die);
+    public void addDie(Integer sideUp, Integer index) {
+        meld[index] = sideUp;
+        combo.addToComboArr(sideUp);
+    }
+
+    public void removeDie(Integer sideUp, Integer index) {
+        meld[index] = 0;
+        combo.removeFromComboArr(sideUp);
+    }
+
+    public Integer returnDie(Integer index) {
+        return meld[index];
     }
     
     public Integer size() {
-        return dice.size();
+        return DEFAULT_MELD_SIZE;
     }
     
-
-    public void addToDieNotUsed(int value) {
-        dieNotUsed.add(value);
+    public Integer calculateMeldScore() {
+        if (this.combo == null) {
+            return 0;
+        }
+        meldScore = combo.calculateScore();
+        return meldScore;
     }
 }
