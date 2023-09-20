@@ -11,8 +11,9 @@ import java.util.*;
 */
 
 
-// from dice held in meld keep track of which combos are valid
-// or keep track of unused die and calculate without those at the end
+// check if any dice in meld are invalid, tell them and dont let them reroll until
+
+
 
 /** Main program class for launching Farkle program. */
 public class Farkle {
@@ -26,7 +27,7 @@ public class Farkle {
         char optChar = 'A';
         String userChoiceRaw = "";
         char userChoice = '\0';
-        Scanner input = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.println("Hello Farkle");
 
         Die die1 = new Die(6);
@@ -92,9 +93,13 @@ public class Farkle {
             System.out.println("----------------------\nQ)      Quit game\nZ)      Bank meld and end round");
             System.out.println("\nYou can choose which die to move into your meld based on the options to the left!");
 
-            userChoiceRaw = input.nextLine();
+            userChoiceRaw = scan.nextLine();
             userChoice = ((userChoiceRaw.toUpperCase()).charAt(0));
 
+            for (int i = 1; i < 7; i++) {
+                
+
+            }
             switch (userChoice) {
                 case 'A': 
                     if (dice.get(1) != 0) {
