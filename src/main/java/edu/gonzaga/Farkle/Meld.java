@@ -23,6 +23,12 @@ public class Meld {
     public Integer returnDie(Integer index) {
         return meld[index];
     }
+
+    public void printMeld() {
+        for(int i = 1; i < 7; i++) {
+            System.out.println("meld[" + i + "]: " + meld[i]);
+        }
+    }
     
     public Integer size() {
         return DEFAULT_MELD_SIZE;
