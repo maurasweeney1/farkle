@@ -1,9 +1,13 @@
 package edu.gonzaga.Farkle;
 /** Class to hold die that have been added to the meld and hold meld score */
 public class Meld {
+    /** keeps track of the score as combo does calculations */
     private Integer meldScore;
+    /** default number of dice that can be in a meld (is 6, first only holds 0) */
     private Integer DEFAULT_MELD_SIZE = 7;
+    /** meld array holds the side that is up of each dice added */
     private Integer meld[] = {0, 0, 0, 0, 0, 0, 0};
+    /** instance of combo in order to call combo methods */
     private Combo combo = new Combo();
 
     public Meld () {

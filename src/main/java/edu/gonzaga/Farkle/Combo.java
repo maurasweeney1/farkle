@@ -3,7 +3,9 @@ package edu.gonzaga.Farkle;
  * up the points earned
  */
 public class Combo {
+    /** dice array holds the side that is up for each die to keep track of which are used */
     private Integer dice[] = {0, 0, 0, 0, 0, 0, 0};
+    /** temporarily holds the score calculated by the combo checks for the meld score */
     private Integer score = 0;
 
     public Combo() {
