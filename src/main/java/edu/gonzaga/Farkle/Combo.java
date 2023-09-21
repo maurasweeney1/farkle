@@ -181,7 +181,12 @@ public class Combo {
         score += 0;
     }
 
-
+    /** Checks to see if a there is a straight (one of every number) 
+     * is in the meld and calculates the score
+     * 
+     * @param none
+     * @return nothing
+    */
     public void CheckForStraight(){
         boolean isStraight = true;
         for (Integer i = 1; i < 7; i++) {
@@ -200,6 +205,12 @@ public class Combo {
         }
     }
 
+     /** Checks to see if a there is are three sets of doubles in the 
+     * meld and calculates the score
+     * 
+     * @param none
+     * @return nothing
+    */
     public void checkForTripleDouble() {
         Integer numPairs = 0;
         for (Integer i = 1; i < 7; i++) {
@@ -215,7 +226,13 @@ public class Combo {
             score += 0;
         }
     }
-
+    /** Calls checkForOnes(), checkForFives(), checkForTriples(), checkForQuads(), 
+     * checkForQuints(), checkForHex(), CheckForStraight(), checkForTripleDouble() 
+     * to find the total score
+     * 
+     * @param none
+     * @return the meld score
+    */
     public Integer calculateScore() {
         checkForOnes();
         checkForFives();
