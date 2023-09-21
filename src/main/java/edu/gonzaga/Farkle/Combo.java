@@ -1,7 +1,10 @@
 package edu.gonzaga.Farkle;
-
+/** This class checks for each different possible combo and tallies
+ * up the points earned
+ */
 public class Combo {
-    private int dice[] = {0, 0, 0, 0, 0, 0, 0};
+    private Integer dice[] = {0, 0, 0, 0, 0, 0, 0};
+    private Integer score = 0;
 
     public Combo() {
         dice[0] = 0;
@@ -12,107 +15,174 @@ public class Combo {
         dice[5] = 0;
         dice[6] = 0;
     }
-
+    
+    /** Increases the number of the given side up in the array tracking
+     * each side up in the dice array
+     * 
+     * @param the side that is up
+     * @return nothing
+    */
     public void addToComboArr(Integer sideUp){
         dice[sideUp] += 1;
     }
 
+    /** Decreases the number of the given side up in the array tracking
+     * each side up in the dice array
+     * 
+     * @param the side that is up
+     * @return nothing
+    */
     public void removeFromComboArr(Integer sideUp) {
         dice[sideUp] -= 1;
     }
 
+    /** Returns the number of dice with a given side up based on the index
+     * 
+     * @param the index (ie. the side thats up) to check
+     * @return the number of dice at that index
+    */
     public Integer returnComboArr(Integer index) {
         return dice[index];
     }
 
+    /** Returns the score accumulated since it is private
+     * 
+     * @param none
+     * @return the score
+    */
+    public Integer returnScore() {
+        return score;
+    }
+
+    /** prints out the number of die at each index 
+     * 
+     * @param none
+     * @return outputs the array
+    */
     public void printComboArr() {
         for (int i = 0; i < 7; i++) {
             System.out.println(returnComboArr(i));
         }
     }
 
-    public Integer checkForOnes() {
+    /** Checks to see if if 1 or 2 ones are in the meld and calculates
+     * the score
+     * 
+     * @param none
+     * @return nothing
+    */
+    public void checkForOnes() {
         if (dice[1] == 1) {
             dice[1] -= 1;
-            return 100;
+            score += 100;
         }
         else if (dice[1] == 2){
             dice[1] -= 2;
-            return 200;
+            score += 200;
         }
         else {
-            return 0;
+            score += 0;
         }
     }
 
-    public Integer checkForFives() {
+    /** Checks to see if 1 or 2 fives are in the meld and calculates
+     * the score
+     * 
+     * @param none
+     * @return nothing
+    */
+    public void checkForFives() {
         if (dice[5] == 1) {
             dice[5] -= 1;
-            return 50;
+            score += 50;
         }
         else if (dice[5] == 2){
             dice[5] -= 2;
-            return 100;
+            score += 100;
         }
         else {
-            return 0;
+            score += 0;
         }
     }
 
-    public Integer checkForTriples() {
+    /** Checks to see if a triplet of any number is in the meld and calculates
+     * the score
+     * 
+     * @param none
+     * @return nothing
+    */
+    public void checkForTriples() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] >= 3){
                 dice[i] -= 3;
                 if (i == 1) {
                     i = 10;
                 }
-                return i * 100;
+                score += (i * 100);
             }
         }
-        return 0;
+        score += 0;
     }
 
-    public int checkForQuads() {
+    /** Checks to see if a quadruple of any number is in the meld and calculates
+     * the score
+     * 
+     * @param none
+     * @return nothing
+    */
+    public void checkForQuads() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] >= 4){
                 dice[i] -= 4;
                 if (i == 1) {
                     i = 10;
                 }
-                return (i * 100) * 2;
+                score += ((i * 100) * 2);
             }
         }  
-        return 0;
+        score += 0;
     }
 
-    public Integer checkForQuints() {
+    /** Checks to see if a quintuple of any number is in the meld and calculates
+     * the score
+     * 
+     * @param none
+     * @return nothing
+    */
+    public void checkForQuints() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] == 5){
                 dice[i] -= 5;
                 if (i == 1) {
                     i = 10;
                 }
-                return (i * 100) * 3;
+                score += ((i * 100) * 3);
             }
         }
-        return 0;
+        score += 0;
     }
 
-    public Integer checkForHex() {
+    /** Checks to see if a hextuple of any number is in the meld and calculates
+     * the score
+     * 
+     * @param none
+     * @return nothing
+    */
+    public void checkForHex() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] == 6){
                 dice[i] -= 6;
                 if (i == 1) {
                     i = 10;
                 }
-                return (i * 100) * 4;
+                score += (i * 100) * 4;
             }
         }
-        return 0;
+        score += 0;
     }
 
 
-    public Integer CheckForStraight(){
+    public void CheckForStraight(){
         boolean isStraight = true;
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] != 1) {
@@ -123,14 +193,14 @@ public class Combo {
             for (int i = 1; i < 7; i++) {
                 dice[i] -= 1;
             }
-            return 1000;
+            score += 1000;
         }
         else {
-            return 0;
+            score += 0;
         }
     }
 
-    public Integer checkForTripleDouble() {
+    public void checkForTripleDouble() {
         Integer numPairs = 0;
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] == 2) {
@@ -139,14 +209,22 @@ public class Combo {
             }
         }
         if (numPairs == 3) {
-            return 750;
+            score += 750;
         }
         else {
-            return 0;
+            score += 0;
         }
     }
 
     public Integer calculateScore() {
-        return checkForTriples() + checkForQuads() + checkForQuints() + checkForHex() + CheckForStraight() + checkForTripleDouble() + checkForOnes() + checkForFives();
+        checkForOnes();
+        checkForFives();
+        checkForTriples();
+        checkForQuads();
+        checkForQuints();
+        checkForHex();
+        CheckForStraight();
+        checkForTripleDouble();
+        return score;
     }
 }

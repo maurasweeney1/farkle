@@ -1,4 +1,13 @@
-
+/* This program runs a version of Farkle where the user gets one hand
+ * of die, and one roll with which they can create a meld
+ * CPSC 224
+ * Homework 1 - Zag Farkle Rolling and Scoring
+ * no sources to cite
+ * 
+ * @author Maura Sweeney
+ * 
+ * @version v1.0 9/20/23
+ */
 
 package edu.gonzaga.Farkle;
 
@@ -13,8 +22,6 @@ import java.util.*;
 
 // check if any dice in meld are invalid, tell them and dont let them reroll until
 
-
-
 /** Main program class for launching Farkle program. */
 public class Farkle {
     // This main is where your Farkle game starts execution for general use.
@@ -25,8 +32,6 @@ public class Farkle {
         Integer numPairs = 0;
         Integer meldScore = 0;
         char optChar = 'A';
-        String userChoiceRaw = "";
-        char userChoice = '\0';
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello Farkle");
 
@@ -93,13 +98,8 @@ public class Farkle {
             System.out.println("----------------------\nQ)      Quit game\nZ)      Bank meld and end round");
             System.out.println("\nYou can choose which die to move into your meld based on the options to the left!");
 
-            userChoiceRaw = scan.nextLine();
-            userChoice = ((userChoiceRaw.toUpperCase()).charAt(0));
-
-            for (int i = 1; i < 7; i++) {
-                
-
-            }
+            String userChoiceString = scan.nextLine().toUpperCase();
+            char userChoice = userChoiceString.charAt(0);
             switch (userChoice) {
                 case 'A': 
                     if (dice.get(1) != 0) {
