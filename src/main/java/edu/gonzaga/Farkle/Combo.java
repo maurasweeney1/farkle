@@ -5,9 +5,9 @@ package edu.gonzaga.Farkle;
 public class Combo {
     /** dice array holds the side that is up for each die to keep track of which are used */
     private Integer dice[] = {0, 0, 0, 0, 0, 0, 0};
+    private Integer unusedDice[] = {0, 0, 0, 0, 0, 0, 0};
     /** temporarily holds the score calculated by the combo checks for the meld score */
     private Integer score = 0;
-
     public Combo() {
         dice[0] = 0;
         dice[1] = 0;
@@ -26,6 +26,7 @@ public class Combo {
     */
     public void addToComboArr(Integer sideUp){
         dice[sideUp] += 1;
+        unusedDice[sideUp] += 1;
     }
 
     /** Decreases the number of the given side up in the array tracking
@@ -36,6 +37,9 @@ public class Combo {
     */
     public void removeFromComboArr(Integer sideUp) {
         dice[sideUp] -= 1;
+        if (unusedDice[sideUp] != 0) {
+            unusedDice[sideUp] -= 1;
+        }
     }
 
     /** Returns the number of dice with a given side up based on the index
@@ -63,7 +67,7 @@ public class Combo {
     */
     public void printComboArr() {
         for (int i = 0; i < 7; i++) {
-            System.out.println(returnComboArr(i));
+            System.out.println("combo[" + i + "]: " + returnComboArr(i));
         }
     }
 
@@ -75,11 +79,11 @@ public class Combo {
     */
     public void checkForOnes() {
         if (dice[1] == 1) {
-            dice[1] -= 1;
+            unusedDice[1] -= 1;
             score += 100;
         }
         else if (dice[1] == 2){
-            dice[1] -= 2;
+            unusedDice[1] -= 2;
             score += 200;
         }
         else {
@@ -95,11 +99,11 @@ public class Combo {
     */
     public void checkForFives() {
         if (dice[5] == 1) {
-            dice[5] -= 1;
+            unusedDice[5] -= 1;
             score += 50;
         }
         else if (dice[5] == 2){
-            dice[5] -= 2;
+            unusedDice[5] -= 2;
             score += 100;
         }
         else {
@@ -116,7 +120,7 @@ public class Combo {
     public void checkForTriples() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] >= 3){
-                dice[i] -= 3;
+                unusedDice[i] -= 3;
                 if (i == 1) {
                     i = 10;
                 }
@@ -135,7 +139,7 @@ public class Combo {
     public void checkForQuads() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] >= 4){
-                dice[i] -= 4;
+                unusedDice[i] -= 4;
                 if (i == 1) {
                     i = 10;
                 }
@@ -154,7 +158,7 @@ public class Combo {
     public void checkForQuints() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] == 5){
-                dice[i] -= 5;
+                unusedDice[i] -= 5;
                 if (i == 1) {
                     i = 10;
                 }
@@ -173,7 +177,7 @@ public class Combo {
     public void checkForHex() {
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] == 6){
-                dice[i] -= 6;
+                unusedDice[i] -= 6;
                 if (i == 1) {
                     i = 10;
                 }
@@ -198,7 +202,7 @@ public class Combo {
         }
         if (isStraight == true) {
             for (int i = 1; i < 7; i++) {
-                dice[i] -= 1;
+                unusedDice[i] -= 1;
             }
             score += 1000;
         }
@@ -217,7 +221,7 @@ public class Combo {
         Integer numPairs = 0;
         for (Integer i = 1; i < 7; i++) {
             if (dice[i] == 2) {
-                dice[i] -= 2;
+                unusedDice[i] -= 2;
                 numPairs++;
             }
         }
@@ -228,6 +232,18 @@ public class Combo {
             score += 0;
         }
     }
+
+    public boolean checkForBadMeld() {
+        boolean badMeld = false;
+        for (int i = 0; i < 7; i++) {
+            if (unusedDice[i] != 0) {
+                badMeld = true;
+            }
+        }
+        return badMeld;
+    }
+
+
     /** Calls checkForOnes(), checkForFives(), checkForTriples(), checkForQuads(), 
      * checkForQuints(), checkForHex(), CheckForStraight(), checkForTripleDouble() 
      * to find the total score
@@ -236,6 +252,7 @@ public class Combo {
      * @return the meld score
     */
     public Integer calculateScore() {
+        score = 0;
         checkForOnes();
         checkForFives();
         checkForTriples();

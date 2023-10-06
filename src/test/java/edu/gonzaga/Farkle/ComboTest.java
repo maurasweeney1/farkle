@@ -278,4 +278,19 @@ public class ComboTest {
         actualScore = combo.returnScore();
         assertEquals(expectedScore, actualScore);
     }
+
+@Test
+    void BadMeld_True() {
+        ArrayList<Integer> testDie =  new ArrayList<Integer>(Arrays.asList(0, 5, 3, 1, 5, 2, 2));
+        boolean expectedValue = true;
+        boolean actualValue;
+        Combo combo = new Combo();
+
+        for (int i = 1; i < 7; i++) {
+            combo.addToComboArr(testDie.get(i));
+        }
+        combo.calculateScore();
+        actualValue = combo.checkForBadMeld();
+        assertEquals(expectedValue, actualValue);
+    }
 }
