@@ -111,12 +111,12 @@ public class Farkle {
             int translatedChoice = userChoice - 64;
             if (translatedChoice == 17) {
                 // bank meld and end round
-                gameOver = true;
+                hand.setIsGameOver(true);
                 System.out.println("End of round, your score is 0");
             }
             else if (translatedChoice == 26) {
                 // quit games
-                gameOver = true;
+                hand.setIsGameOver(true);
                 System.out.println("End of round, your score is " + meld.calculateMeldScore());
             }
             else if (translatedChoice == 18) {
@@ -159,6 +159,7 @@ public class Farkle {
             else {
                 System.out.println("Invalid choice");
             }
+            gameOver = hand.getIsGameOver();
         }
     }
 }

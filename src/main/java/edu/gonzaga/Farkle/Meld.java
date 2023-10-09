@@ -55,7 +55,6 @@ public class Meld {
     
     /** Returns the size of the meld array
      * 
-     * @param none
      * @return the size of the list
     */
     public Integer size() {
@@ -65,7 +64,6 @@ public class Meld {
     /** uses combo method to calculate the meld score as long as the
      * array is not empty
      * 
-     * @param none
      * @return the meld score
     */
     public Integer calculateMeldScore() {
@@ -80,7 +78,6 @@ public class Meld {
      * used after calculating the score to ensure no dice in the meld
      * cannot be used
      * 
-     * @param none
      * @return true or false (is or isn't any dice left in the meld)
     */
     public boolean checkForBadMeld() {

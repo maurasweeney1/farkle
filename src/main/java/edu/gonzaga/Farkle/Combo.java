@@ -5,9 +5,11 @@ package edu.gonzaga.Farkle;
 public class Combo {
     /** dice array holds the side that is up for each die to keep track of which are used */
     private Integer dice[] = {0, 0, 0, 0, 0, 0, 0};
+    /** keeps track of how many of each side up of dice were added to the meld and whether or not they were used or removed*/
     private int unusedDice[] = {0, 0, 0, 0, 0, 0, 0};
     /** temporarily holds the score calculated by the combo checks for the meld score */
     private Integer score = 0;
+
     public Combo() {
         dice[0] = 0;
         dice[1] = 0;
@@ -36,7 +38,7 @@ public class Combo {
      * each side up in the dice array
      * 
      * @param the side that is up
-     * @return nothing
+     * @return updates dice and unusedDice fields
     */
     public void removeFromComboArr(Integer sideUp) {
         dice[sideUp] -= 1;
@@ -57,7 +59,6 @@ public class Combo {
 
     /** Returns the score accumulated since it is private
      * 
-     * @param none
      * @return the score
     */
     public Integer returnScore() {
@@ -66,7 +67,6 @@ public class Combo {
 
     /** prints out the number of die at each index 
      * 
-     * @param none
      * @return outputs the array
     */
     public void printComboArr() {
@@ -75,6 +75,10 @@ public class Combo {
         }
     }
 
+    /** getter for the unusedDice field
+     * 
+     * @return unusedDice field
+    */
     public int [] getUnusedDice() {
         return unusedDice;
     }
@@ -82,8 +86,7 @@ public class Combo {
     /** Checks to see if if 1 or 2 ones are in the meld and calculates
      * the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForOnes() {
         if (dice[1] == 1) {
@@ -102,8 +105,7 @@ public class Combo {
     /** Checks to see if 1 or 2 fives are in the meld and calculates
      * the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForFives() {
         if (dice[5] == 1) {
@@ -122,8 +124,7 @@ public class Combo {
     /** Checks to see if a triplet of any number is in the meld and calculates
      * the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForTriples() {
         for (Integer i = 1; i < 7; i++) {
@@ -141,8 +142,7 @@ public class Combo {
     /** Checks to see if a quadruple of any number is in the meld and calculates
      * the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForQuads() {
         for (Integer i = 1; i < 7; i++) {
@@ -160,8 +160,7 @@ public class Combo {
     /** Checks to see if a quintuple of any number is in the meld and calculates
      * the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForQuints() {
         for (Integer i = 1; i < 7; i++) {
@@ -179,8 +178,7 @@ public class Combo {
     /** Checks to see if a hextuple of any number is in the meld and calculates
      * the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForHex() {
         for (Integer i = 1; i < 7; i++) {
@@ -198,8 +196,7 @@ public class Combo {
     /** Checks to see if a there is a straight (one of every number) 
      * is in the meld and calculates the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void CheckForStraight(){
         boolean isStraight = true;
@@ -222,8 +219,7 @@ public class Combo {
      /** Checks to see if a there is are three sets of doubles in the 
      * meld and calculates the score
      * 
-     * @param none
-     * @return nothing
+     * @return updated unusedDice and score fields
     */
     public void checkForTripleDouble() {
         Integer numPairs = 0;
@@ -245,7 +241,6 @@ public class Combo {
      * checkForQuints(), checkForHex(), CheckForStraight(), checkForTripleDouble() 
      * to find the total score
      * 
-     * @param none
      * @return the meld score
     */
     public Integer calculateScore() {

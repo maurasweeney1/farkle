@@ -3,11 +3,18 @@ package edu.gonzaga.Farkle;
 import java.util.*;
 
 public class Hand {
+    /** holds the side up of dice in the current hand */
     private ArrayList<Integer> dice =  new ArrayList<Integer>();
+    /** holds whether or not the player Farkled */
     private boolean isAFarkle = false;
-    private int numPairs = 0;
+    /** holds whether or not the current game is over */
     private boolean gameOver = false;
 
+    /** Description
+     * 
+     * @param 
+     * @return 
+    */
     public Hand() {
         Die die1 = new Die(6);
         Die die2 = new Die(6);
@@ -26,6 +33,12 @@ public class Hand {
         Collections.sort(dice);
     }
 
+    /** rerolls hand given previously used ArrayList of die
+     * 
+     * 
+     * @param ArrayList of Integers, previous hand
+     * @return ArrayList of a new hand, only including rerolled die
+    */
     public ArrayList<Integer> getRerollHand(ArrayList<Integer> newDice) {
         Die tempDie = new Die(6);
         Integer tempSideUp = 0;
@@ -43,19 +56,37 @@ public class Hand {
         return rerollHandSideUp;
     }
 
+    /** getter for GameOver field
+     * 
+     * @return gameOver field
+    */
     public boolean getIsGameOver() {
         return gameOver;
     }
 
-    public int getNumPairs() {
-        return numPairs;
+    /** Setter for GameOver field
+     * 
+     * @param true or false value for gameOVer
+     * @return updates gameOver field
+    */
+    public void setIsGameOver(boolean bool) {
+        gameOver = bool;
     }
 
+    /** getter for dice field
+     * 
+     * @return dice array field
+    */
     public ArrayList<Integer> getDiceArray() {
         return dice;
     }
         
+    /** checks whether or not the player Farkled that round
+     * 
+     * @return updates isAFarkle and gameOverField
+    */
     public void checkForFarkle () {
+        Integer numPairs = 0;
         Integer diceSidesUp[] = {0, 0, 0, 0, 0, 0, 0};
         int num = 0;
         for (int i = 0; i < dice.size(); i++) {
@@ -88,6 +119,12 @@ public class Hand {
         }
     }
 
+    /** Checks whether or not the user has a hot hand, calling hotHandTrue() 
+     * if they do
+     * 
+     * @return 0 if theres no hot hand, 1 if there is and the player rerolls, 
+     * 2 if there is and the player quits
+    */
     public Integer checkForHotHand() {
         for (int i = 0; i < dice.size(); i++) {
             if (!(dice.get(i).equals(dice.get(0))))
@@ -99,6 +136,11 @@ public class Hand {
             return 2;
     }
 
+    /** Used when the user has a hot hand, asks wether they want to reroll all their die
+     * or bank their current score
+     * 
+     * @return either A or B based on user input
+    */
     public char hotHandTrue() {
         Scanner scan = new Scanner(System.in);
         Boolean validChoice = false;
