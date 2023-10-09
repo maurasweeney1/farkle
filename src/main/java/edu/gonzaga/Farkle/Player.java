@@ -25,5 +25,9 @@ public class Player {
     public Integer getPlayerScore() {
         return playerScore;
     }
+
+    public void setPlayerScore(Integer score) {
+        playerScore = score;
+    }
 }
 

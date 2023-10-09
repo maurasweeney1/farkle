@@ -82,6 +82,7 @@ public class Farkle {
         
         // prints out game interface, takes in user choice 
         while (gameOver == false) {
+            player.setPlayerScore(meldScore);
             System.out.println("Welcome " + player.getName() + " its your turn!");
             System.out.println("\n     Hand   Meld\n----------------------");
             for (Integer i = 1; i < dice.size(); i++) {
@@ -101,7 +102,7 @@ public class Farkle {
                 }
                 System.out.println((char)(optChar+i - 1) + ")   " + diceAti + "    |    " + meldAti);
             }
-            System.out.println("Meld score: " + player.getPlayerScore());
+            System.out.println("Meld score: " + meldScore);
             System.out.println("----------------------\nR)      Reroll Die\nQ)      Quit game\nZ)      Bank meld and end round");
             System.out.println("\nYou can choose which die to move into your meld based on the options to the left!");
 
@@ -119,20 +120,21 @@ public class Farkle {
                 System.out.println("End of round, your score is " + meld.calculateMeldScore());
             }
             else if (translatedChoice == 18) {
+                meld.calculateMeldScore();
                 if(meld.checkForBadMeld() == true){
                     System.out.println("Sorry, you have die in the meld that cannot be scored");
                 }
                 else {
+                    player.updatePlayerScore(meldScore);
                     meld = new Meld();
                     dice = hand.getRerollHand(dice);
-                    System.out.println("Size: " + dice.size());
                     for (int i = 0; i < dice.size(); i++) { 
                         System.out.println(dice.get(i));
                     }
                     hand.checkForFarkle();
                     if (hand.checkForHotHand() == 1)
                         hand = new Hand();
-                    else
+                    else if (hand.checkForHotHand() == 2)
                         gameOver = true;
                 }
             }
@@ -157,7 +159,6 @@ public class Farkle {
             else {
                 System.out.println("Invalid choice");
             }
-            player.updatePlayerScore(meldScore);
         }
     }
 }

@@ -40,6 +40,7 @@ public class Combo {
     */
     public void removeFromComboArr(Integer sideUp) {
         dice[sideUp] -= 1;
+        unusedDice[sideUp] -= 1;
         if (unusedDice[sideUp] < 0) {
             unusedDice[sideUp] = 0;
         }

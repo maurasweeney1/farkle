@@ -27,22 +27,18 @@ public class Hand {
     }
 
     public ArrayList<Integer> getRerollHand(ArrayList<Integer> newDice) {
-        ArrayList<Die> rerollHand = new ArrayList<Die>();
         Die tempDie = new Die(6);
+        Integer tempSideUp = 0;
         ArrayList<Integer> rerollHandSideUp = new ArrayList<Integer>();
         rerollHandSideUp.add(0);
         for (int i = 1; i < newDice.size(); i++) {
-            System.out.print("reroll " + i + ": ");
             tempDie.roll();
-            System.out.println(tempDie.getSideUp());
+            tempSideUp = tempDie.getSideUp();
             if(newDice.get(i) != 0) {
-                rerollHand.add(tempDie);
-            }
+                rerollHandSideUp.add(tempSideUp);
+            }   
         }
-        Collections.sort(rerollHand);
-        for(int i = 0; i < rerollHand.size(); i++) {
-            rerollHandSideUp.add(rerollHand.get(i).getSideUp());
-        }
+        Collections.sort(rerollHandSideUp);
         dice = rerollHandSideUp;
         return rerollHandSideUp;
     }

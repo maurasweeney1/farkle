@@ -88,7 +88,7 @@ public class Meld {
         boolean badMeld = false;
         for (int i = 0; i < 7; i++) {
             if (arr[i] != 0) {
-                System.out.println("arr[" + i + "]" + arr[i]);
+                System.out.println("arr[" + i + "] " + arr[i]);
                 badMeld = true;
             }
         }
