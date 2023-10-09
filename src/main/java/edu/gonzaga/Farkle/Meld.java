@@ -75,4 +75,23 @@ public class Meld {
         meldScore = combo.calculateScore();
         return meldScore;
     }
+
+    /** Checks to see if a there are any dice left in the meld, to be
+     * used after calculating the score to ensure no dice in the meld
+     * cannot be used
+     * 
+     * @param none
+     * @return true or false (is or isn't any dice left in the meld)
+    */
+    public boolean checkForBadMeld() {
+        int arr[] = combo.getUnusedDice();
+        boolean badMeld = false;
+        for (int i = 0; i < 7; i++) {
+            if (arr[i] != 0) {
+                System.out.println("arr[" + i + "]" + arr[i]);
+                badMeld = true;
+            }
+        }
+        return badMeld;
+    }
 }

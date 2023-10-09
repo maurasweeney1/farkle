@@ -279,7 +279,7 @@ public class ComboTest {
         assertEquals(expectedScore, actualScore);
     }
 
-@Test
+/*@Test
     void BadMeld_True() {
         ArrayList<Integer> testDie =  new ArrayList<Integer>(Arrays.asList(0, 5, 3, 1, 5, 2, 2));
         boolean expectedValue = true;
@@ -292,5 +292,5 @@ public class ComboTest {
         combo.calculateScore();
         actualValue = combo.checkForBadMeld();
         assertEquals(expectedValue, actualValue);
-    }
+    }*/
 }

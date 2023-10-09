@@ -33,6 +33,7 @@ public class Farkle {
         Integer meldScore = 0;
         char optChar = 'A';
         Scanner scan = new Scanner(System.in);
+        Integer roundScore = 0;
 
         // print out intro
         for (int i = 0; i <= 12; i++) {
@@ -67,7 +68,7 @@ public class Farkle {
         }
         System.out.println("Please enter your name:");
         String name = scan.nextLine();
-        if (name == "\n") { // FIXME
+        if (name.isEmpty()) { 
             player = new Player();
         }
         else {
@@ -75,10 +76,11 @@ public class Farkle {
         }
         
         // creates new hand
-        Hand fullHand = new Hand();
-        ArrayList<Integer> dice = fullHand.getDiceArray();
-        gameOver = fullHand.getIsGameOver();
-
+        Hand hand = new Hand();
+        ArrayList<Integer> dice = hand.getDiceArray();
+        hand.checkForFarkle();
+        
+        
         // prints out game interface, takes in user choice 
         while (gameOver == false) {
             System.out.println("Welcome " + player.getName() + " its your turn!");
@@ -101,13 +103,12 @@ public class Farkle {
                 System.out.println((char)(optChar+i - 1) + ")   " + diceAti + "    |    " + meldAti);
             }
             System.out.println("Meld score: " + meldScore);
-            System.out.println("----------------------\nQ)      Quit game\nZ)      Bank meld and end round");
+            System.out.println("----------------------\nR)      Reroll Die\nQ)      Quit game\nZ)      Bank meld and end round");
             System.out.println("\nYou can choose which die to move into your meld based on the options to the left!");
 
             String userChoiceString = scan.nextLine().toUpperCase();
             char userChoice = userChoiceString.charAt(0);
             int translatedChoice = userChoice - 64;
-            System.out.println(translatedChoice);
             if (translatedChoice == 17) {
                 // bank meld and end round
                 gameOver = true;
@@ -117,6 +118,20 @@ public class Farkle {
                 // quit games
                 gameOver = true;
                 System.out.println("End of round, your score is " + meld.calculateMeldScore());
+            }
+            else if (translatedChoice == 18) {
+                if(meld.checkForBadMeld() == true){
+                    System.out.println("Sorry, you have die in the meld that cannot be scored");
+                }
+                else {
+                    meld = new Meld();
+                    dice = hand.getRerollHand(dice);
+                    System.out.println("Size: " + dice.size());
+                    for (int i = 0; i < dice.size(); i++) { 
+                        System.out.println(dice.get(i));
+                    }
+                    hand.checkForFarkle();
+                }
             }
             else if (translatedChoice >= 1 && translatedChoice <= 6) {
                 if (dice.get(translatedChoice) != 0) {
@@ -139,6 +154,7 @@ public class Farkle {
             else {
                 System.out.println("Invalid choice");
             }
+            roundScore = meldScore;
         }
     }
 }

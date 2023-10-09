@@ -26,6 +26,27 @@ public class Hand {
         Collections.sort(dice);
     }
 
+    public ArrayList<Integer> getRerollHand(ArrayList<Integer> newDice) {
+        ArrayList<Die> rerollHand = new ArrayList<Die>();
+        Die tempDie = new Die(6);
+        ArrayList<Integer> rerollHandSideUp = new ArrayList<Integer>();
+        rerollHandSideUp.add(0);
+        for (int i = 1; i < newDice.size(); i++) {
+            System.out.print("reroll " + i + ": ");
+            tempDie.roll();
+            System.out.println(tempDie.getSideUp());
+            if(newDice.get(i) != 0) {
+                rerollHand.add(tempDie);
+            }
+        }
+        Collections.sort(rerollHand);
+        for(int i = 0; i < rerollHand.size(); i++) {
+            rerollHandSideUp.add(rerollHand.get(i).getSideUp());
+        }
+        dice = rerollHandSideUp;
+        return rerollHandSideUp;
+    }
+
     public boolean getIsGameOver() {
         return gameOver;
     }
@@ -39,7 +60,16 @@ public class Hand {
     }
         
     public void checkForFarkle () {
-        if (dice.get(1) != 0 || dice.get(5) != 0) {
+        Integer diceSidesUp[] = {0, 0, 0, 0, 0, 0, 0};
+        int num = 0;
+        for (int i = 0; i < dice.size(); i++) {
+            num = dice.get(i);
+            diceSidesUp[num] += 1;
+        }
+        if (dice.size() == 1) {
+            isAFarkle = true;
+        }
+        else if (dice.get(1) != 0 || dice.get(5) != 0) {
             isAFarkle = false;
         }
         else {
