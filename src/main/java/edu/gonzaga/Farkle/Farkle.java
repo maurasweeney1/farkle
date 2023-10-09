@@ -33,7 +33,6 @@ public class Farkle {
         Integer meldScore = 0;
         char optChar = 'A';
         Scanner scan = new Scanner(System.in);
-        Integer roundScore = 0;
 
         // print out intro
         for (int i = 0; i <= 12; i++) {
@@ -102,7 +101,7 @@ public class Farkle {
                 }
                 System.out.println((char)(optChar+i - 1) + ")   " + diceAti + "    |    " + meldAti);
             }
-            System.out.println("Meld score: " + meldScore);
+            System.out.println("Meld score: " + player.getPlayerScore());
             System.out.println("----------------------\nR)      Reroll Die\nQ)      Quit game\nZ)      Bank meld and end round");
             System.out.println("\nYou can choose which die to move into your meld based on the options to the left!");
 
@@ -131,6 +130,10 @@ public class Farkle {
                         System.out.println(dice.get(i));
                     }
                     hand.checkForFarkle();
+                    if (hand.checkForHotHand() == 1)
+                        hand = new Hand();
+                    else
+                        gameOver = true;
                 }
             }
             else if (translatedChoice >= 1 && translatedChoice <= 6) {
@@ -154,7 +157,7 @@ public class Farkle {
             else {
                 System.out.println("Invalid choice");
             }
-            roundScore = meldScore;
+            player.updatePlayerScore(meldScore);
         }
     }
 }

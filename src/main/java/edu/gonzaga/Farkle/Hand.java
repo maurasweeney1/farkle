@@ -91,4 +91,34 @@ public class Hand {
             gameOver = true;
         }
     }
+
+    public Integer checkForHotHand() {
+        for (int i = 0; i < dice.size(); i++) {
+            if (!(dice.get(i).equals(dice.get(0))))
+                return 0;
+        }
+        if (hotHandTrue() == 'A')
+            return 1;
+        else
+            return 2;
+    }
+
+    public char hotHandTrue() {
+        Scanner scan = new Scanner(System.in);
+        Boolean validChoice = false;
+        System.out.println("~~~~ Hot Hand! ~~~~\nWould you lik eto roll 6 new dice, or bank and end your turn?\n~~~~~~~~~~~~~~~~~~~");
+        while (validChoice == false) {
+            System.out.println("A) Six new dice\nB) Bank meld and end round");
+            String userChoiceString = scan.nextLine().toUpperCase();
+            char userChoice = userChoiceString.charAt(0);
+            if (userChoice == 'A' || userChoice == 'B') {
+                validChoice = true;
+                return userChoice;
+            }
+            else {
+                System.out.println("Invalid Choice, Please enter another choice");
+            }
+        }
+        return ' ';
+    }
 }
