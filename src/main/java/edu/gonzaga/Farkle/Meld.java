@@ -47,11 +47,14 @@ public class Meld {
         return meld[index];
     }
 
-    /*public void printMeld() {
-        for(int i = 1; i < 7; i++) {
-            System.out.println("meld[" + i + "]: " + meld[i]);
-        }
-    }*/
+    public Integer getMeldScore() {
+        return meldScore;
+    }
+
+
+    public Integer returnMeld(Integer index) {
+        return combo.returnComboArr(index);
+    }
     
     /** Returns the size of the meld array
      * 
@@ -85,7 +88,6 @@ public class Meld {
         boolean badMeld = false;
         for (int i = 0; i < 7; i++) {
             if (arr[i] != 0) {
-                System.out.println("arr[" + i + "] " + arr[i]);
                 badMeld = true;
             }
         }

@@ -9,7 +9,7 @@ public class Combo {
     private int unusedDice[] = {0, 0, 0, 0, 0, 0, 0};
     /** temporarily holds the score calculated by the combo checks for the meld score */
     private Integer score = 0;
-
+    
     public Combo() {
         dice[0] = 0;
         dice[1] = 0;
@@ -18,6 +18,14 @@ public class Combo {
         dice[4] = 0;
         dice[5] = 0;
         dice[6] = 0;
+    }
+
+    /** getter for the unusedDice field
+     * 
+     * @return unusedDice field
+    */
+    public int[] getUnusedDice() {
+        return unusedDice;
     }
     
     /** Increases thke number of the given side up in the array tracking
@@ -73,14 +81,6 @@ public class Combo {
         for (int i = 0; i < 7; i++) {
             System.out.println("combo[" + i + "]: " + returnComboArr(i));
         }
-    }
-
-    /** getter for the unusedDice field
-     * 
-     * @return unusedDice field
-    */
-    public int [] getUnusedDice() {
-        return unusedDice;
     }
 
     /** Checks to see if if 1 or 2 ones are in the meld and calculates
@@ -237,6 +237,30 @@ public class Combo {
         }
     }
 
+    /** Checks for a combo where there is a triple and a double
+     * 
+     * @return adds 1500 to the score if a full house is found
+    */
+    public void checkForFullHouse() {
+        boolean isTriple = false, isDouble = false;
+        Integer isDoubleIndex = 0, isTripleIndex = 0;
+        for(int i = 1; i < 7; i++) {
+            if (dice[i] == 3) {
+                isTriple = true;
+                isTripleIndex = i;
+            }
+            if (dice[i] == 2){
+                isDouble = true;
+                isDoubleIndex = i;
+            }
+        }
+        if (isTriple && isDouble) {
+            unusedDice[isTripleIndex] -= 3;
+            unusedDice[isDoubleIndex] -= 2;
+            score += 1500;
+        }
+    }
+
     /** Calls checkForOnes(), checkForFives(), checkForTriples(), checkForQuads(), 
      * checkForQuints(), checkForHex(), CheckForStraight(), checkForTripleDouble() 
      * to find the total score
@@ -245,6 +269,7 @@ public class Combo {
     */
     public Integer calculateScore() {
         score = 0;
+        checkForFullHouse();
         checkForOnes();
         checkForFives();
         checkForTriples();

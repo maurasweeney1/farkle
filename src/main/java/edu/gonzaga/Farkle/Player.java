@@ -5,10 +5,13 @@ public class Player {
     private String name;
     /** keeps track of the player's meldScore throughout multiple rounds */
     private Integer playerScore;
+    /** keeps track of the number of players to provide a unique name if not entered */
+    private Integer numPlayers = 1;
 
     public Player() {
-        name = "Unknown Player";
+        name = "Unknown Player" + numPlayers;
         playerScore = 0;
+        numPlayers++;
     }
 
     public Player(String inputName) {

@@ -33,6 +33,7 @@ public class Farkle {
         Integer meldScore = 0;
         char optChar = 'A';
         Scanner scan = new Scanner(System.in);
+        Integer pointsToWin = 0;
 
         // print out intro
         for (int i = 0; i <= 12; i++) {
@@ -65,6 +66,21 @@ public class Farkle {
             }
             System.out.print("\n");
         }
+
+        // get number of points to play until
+        System.out.println("How many points would you like to play to this time?");
+        String inputPoints = scan.nextLine();
+        while (!Character.isDigit(inputPoints.charAt(0))) {
+            System.out.println("Invalid choice, please enter how many points you would like to play to.");
+            inputPoints = scan.nextLine();
+            if (inputPoints.isEmpty()) {
+                pointsToWin = 10000;
+            }
+        }
+        pointsToWin = Integer.valueOf(inputPoints);
+        
+
+        // get player's name
         System.out.println("Please enter your name:");
         String name = scan.nextLine();
         if (name.isEmpty()) { 
@@ -128,14 +144,9 @@ public class Farkle {
                     player.updatePlayerScore(meldScore);
                     meld = new Meld();
                     dice = hand.getRerollHand(dice);
-                    for (int i = 0; i < dice.size(); i++) { 
-                        System.out.println(dice.get(i));
-                    }
                     hand.checkForFarkle();
-                    if (hand.checkForHotHand() == 1)
+                    if (hand.checkForHotHand(hand) == true)
                         hand = new Hand();
-                    else if (hand.checkForHotHand() == 2)
-                        gameOver = true;
                 }
             }
             else if (translatedChoice >= 1 && translatedChoice <= 6) {
