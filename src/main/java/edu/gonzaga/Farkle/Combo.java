@@ -10,7 +10,7 @@ public class Combo {
     /** temporarily holds the score calculated by the combo checks for the meld score */
     private Integer score = 0;
     /** holds the side up of the die used in full house combo */
-    Integer isDoubleIndex = 0, isTripleIndex = 0;
+    private Integer isDoubleIndex = 0, isTripleIndex = 0;
     
     public Combo() {
         dice[0] = 0;
@@ -30,9 +30,9 @@ public class Combo {
         return unusedDice;
     }
 
-    /** getter for the unusedDice field
+    /** Returns the score accumulated since it is private
      * 
-     * @return unusedDice field
+     * @return the score
     */
     public Integer getScore() {
         return score;
@@ -73,14 +73,6 @@ public class Combo {
     */
     public Integer returnComboArr(Integer index) {
         return dice[index];
-    }
-
-    /** Returns the score accumulated since it is private
-     * 
-     * @return the score
-    */
-    public Integer returnScore() {
-        return score;
     }
 
     /** prints out the number of die at each index 
@@ -280,7 +272,9 @@ public class Combo {
     */
     public void calculateScore() {
         score = 0;
-        checkForFullHouse();
+        if(checkForFullHouse()) {
+            score -= isTripleIndex * 100;
+        }
         checkForOnes();
         checkForFives();
         checkForTriples();

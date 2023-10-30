@@ -130,14 +130,6 @@ public class Player {
         return meld.returnDie(index);
     }
 
-    /** getter for the meld field
-     * 
-     * @return the player's meld
-    */
-    public Meld getMeld() {
-        return meld;
-    }
-
     /** getter for the gameOver field
      * 
      * @return the boolean value in the gameOver field

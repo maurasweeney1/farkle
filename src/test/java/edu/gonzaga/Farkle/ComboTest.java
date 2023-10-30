@@ -19,7 +19,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.CheckForStraight();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -34,7 +34,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.CheckForStraight();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -49,7 +49,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForTriples();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -64,7 +64,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForTriples();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -79,7 +79,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForQuads();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
     
@@ -94,7 +94,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForQuads();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -109,7 +109,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForQuints();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -124,7 +124,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForQuints();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -139,7 +139,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForHex();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -154,7 +154,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForHex();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -169,7 +169,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForTripleDouble();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -184,7 +184,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForTripleDouble();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -200,7 +200,7 @@ public class ComboTest {
         }
         
         combo.checkForOnes();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -215,7 +215,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForOnes();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -230,7 +230,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForOnes();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -245,7 +245,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForFives();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -260,7 +260,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForFives();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -275,7 +275,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForFives();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -290,7 +290,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForFullHouse();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 
@@ -305,24 +305,7 @@ public class ComboTest {
             combo.addToComboArr(testDie.get(i));
         }
         combo.checkForFullHouse();
-        actualScore = combo.returnScore();
+        actualScore = combo.getScore();
         assertEquals(expectedScore, actualScore);
     }
 }
-
-
-
-/*@Test
-    void BadMeld_True() {
-        ArrayList<Integer> testDie =  new ArrayList<Integer>(Arrays.asList(0, 5, 3, 1, 5, 2, 2));
-        boolean expectedValue = true;
-        boolean actualValue;
-        Combo combo = new Combo();
-
-        for (int i = 1; i < 7; i++) {
-            combo.addToComboArr(testDie.get(i));
-        }
-        combo.calculateScore();
-        actualValue = combo.checkForBadMeld();
-        assertEquals(expectedValue, actualValue);
-    }*/

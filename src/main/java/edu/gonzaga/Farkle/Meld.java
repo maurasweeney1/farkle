@@ -63,14 +63,6 @@ public class Meld {
         this.meldScore = meldScore;
     }
     
-    /** Returns the size of the meld array
-     * 
-     * @return the size of the list
-    */
-    public Integer size() {
-        return DEFAULT_MELD_SIZE;
-    }
-    
     /** uses combo method to calculate the meld score as long as the
      * array is not empty
      * 

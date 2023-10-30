@@ -73,7 +73,7 @@ public class Farkle {
         String inputPoints = scan.nextLine();
         if (inputPoints.isEmpty()) {
             pointsToWin = 10000;
-            System.out.println(1000 + " points to win");
+            System.out.println("Default: " + pointsToWin + " points to win");
         }
         else {
             while (!Character.isDigit(inputPoints.charAt(0))) {
@@ -88,7 +88,7 @@ public class Farkle {
         String inputNumPlayers = scan.nextLine();
         if (inputNumPlayers.isEmpty()) {
             numPlayers = 1;
-            System.out.println(1 + " player");
+            System.out.println("Default: " + 1 + " player");
         }
         else {
             while (!Character.isDigit(inputNumPlayers.charAt(0))) {
@@ -104,6 +104,7 @@ public class Farkle {
             String name = scan.nextLine();
             if (name.isEmpty()) { 
                 player = new Player(i + 1);
+                System.out.println("Default: " + player.getName());
             }
             else {
                 player = new Player(name);
@@ -208,9 +209,13 @@ public class Farkle {
                         }
                     }
                 } // while loop for round over ends
+                
                 if (currentPlayer.getTotalScore() >= pointsToWin) {
-                    System.out.println("Congratulations " + currentPlayer.getName() + " you won!"); 
+                    System.out.println("Congratulations " + currentPlayer.getName() + " you won! 🎉🎉"); 
                     everyoneGameOver = true;
+                    for (int i = 0; i < numPlayers; i++) {
+                        playerList.get(i).setRoundOver(true);
+                    }
                 }
             } // for loop through each player ends 
             // printing out all scores
@@ -219,11 +224,16 @@ public class Farkle {
                 break;
             }
             else {
-                System.out.println("\nCurrent meld scores:\n~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("\nCurrent meld scores:\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 for (int i = 0; i < numPlayers; i++) {
-                    System.out.println(playerList.get(i).getName() + ": " + playerList.get(i).getTotalScore());
+                    if (playerList.get(i).getTotalScore() >= pointsToWin){
+                        System.out.println("🎉🎉 " + playerList.get(i).getName() + " 🎉🎉: " + playerList.get(i).getTotalScore());
+                    }
+                    else {
+                        System.out.println(playerList.get(i).getName() + ": " + playerList.get(i).getTotalScore());
+                    }
                 }
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~\n");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             }
             for (int i = 0; i < numPlayers; i++) {
                 if (playerList.get(i).getGameOver()) {
