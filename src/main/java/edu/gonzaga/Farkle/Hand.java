@@ -7,6 +7,8 @@ public class Hand {
     private ArrayList<Integer> dice =  new ArrayList<Integer>();
     /** holds whether or not the current game is over */
     private boolean gameOver = false;
+    /** holds whether or not the current round is over */
+    private boolean roundOver = false;
     /** holds the number of dice in the current hand */
     private Integer numDie = 0;
 
@@ -17,7 +19,6 @@ public class Hand {
         Die die4 = new Die(6);
         Die die5 = new Die(6);
         Die die6 = new Die(6);
-        System.out.println("Now rolling our die!");
         die1.roll();
         die2.roll();
         die3.roll();
@@ -33,6 +34,14 @@ public class Hand {
         dice = newDice;
         Collections.sort(dice);
         numDie = newDice.size();
+    }
+
+    /** getter for the numDie field
+     * 
+     * @return numDie field
+    */
+    public Integer getNumDie() {
+        return numDie;
     }
 
     /** rerolls hand given previously used ArrayList of die
@@ -72,6 +81,23 @@ public class Hand {
      * @param true or false value for gameOVer
      * @return updates gameOver field
     */
+    public void setIsRoundOver(boolean bool) {
+        this.roundOver = bool;
+    }
+
+    /** getter for roundOver field
+     * 
+     * @return gameOver field
+    */
+    public boolean getIsRoundOver() {
+        return roundOver;
+    }
+
+    /** Setter for GameOver field
+     * 
+     * @param true or false value for gameOVer
+     * @return updates gameOver field
+    */
     public void setIsGameOver(boolean bool) {
         gameOver = bool;
     }
@@ -99,8 +125,10 @@ public class Hand {
             // end game if player farkled
             System.out.println("Oops! You farkled, round is over");
             gameOver = true;
+            roundOver = true;
             isAFarkle = true;
         }
+        meld.setMeldScore(0);
         return isAFarkle;
     }
 
@@ -110,16 +138,16 @@ public class Hand {
      * @return false if theres no hot hand, true if there is and the player rerolls, 
      * and true and gameOver is set to true if there is and the player quits
     */
-    public boolean checkForHotHand(Hand hand) {
+    public boolean checkForHotHand() {
         Meld meld = new Meld();
-        for (int i = 1; i < hand.dice.size(); i++) {
-            meld.addDie(hand.dice.get(i), i);
+        for (int i = 1; i < dice.size(); i++) {
+            meld.addDie(dice.get(i), i);
         }
-        meld.calculateMeldScore();
+        meld.getMeldScore();
         if (meld.checkForBadMeld()) {
             return false;
         }
-        else if (hotHandTrue() == 'A') {
+        else if (hotHandTrue(meld) == 'A') {
             return true;
         }
         else {
@@ -133,12 +161,30 @@ public class Hand {
      * 
      * @return either A or B based on user input
     */
-    public char hotHandTrue() {
+    public char hotHandTrue(Meld meld) {
+        System.out.println("\n     Hand   Meld\n----------------------");
+        for (int i = 1; i < dice.size(); i++) {
+            String diceAti = "";
+            String meldAti = "";
+            if (dice.get(i) == 0) {
+                diceAti = " ";
+            }
+            else {
+            diceAti = dice.get(i).toString();
+            }
+            if (meld.returnDie(i) == 0) {
+                meldAti = " ";
+            }
+            else {
+                meldAti = meld.returnDie(i).toString();
+            }
+            System.out.println((char)('A' + i - 1) + ")   " + diceAti + "    |    " + meldAti);
+        }
         Scanner scan = new Scanner(System.in);
         Boolean validChoice = false;
         System.out.println("~~~~ Hot Hand! ~~~~\nWould you like to roll 6 new dice, or bank and end your turn?\n~~~~~~~~~~~~~~~~~~~");
         while (validChoice == false) {
-            System.out.println("A) Six new dice\nB) Bank meld and end round");
+            System.out.println("A) All new dice\nB) Bank meld and end round");
             String userChoiceString = scan.nextLine().toUpperCase();
             char userChoice = userChoiceString.charAt(0);
             if (userChoice == 'A' || userChoice == 'B') {

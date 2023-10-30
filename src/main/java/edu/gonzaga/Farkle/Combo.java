@@ -9,6 +9,8 @@ public class Combo {
     private int unusedDice[] = {0, 0, 0, 0, 0, 0, 0};
     /** temporarily holds the score calculated by the combo checks for the meld score */
     private Integer score = 0;
+    /** holds the side up of the die used in full house combo */
+    Integer isDoubleIndex = 0, isTripleIndex = 0;
     
     public Combo() {
         dice[0] = 0;
@@ -26,6 +28,14 @@ public class Combo {
     */
     public int[] getUnusedDice() {
         return unusedDice;
+    }
+
+    /** getter for the unusedDice field
+     * 
+     * @return unusedDice field
+    */
+    public Integer getScore() {
+        return score;
     }
     
     /** Increases thke number of the given side up in the array tracking
@@ -241,24 +251,25 @@ public class Combo {
      * 
      * @return adds 1500 to the score if a full house is found
     */
-    public void checkForFullHouse() {
-        boolean isTriple = false, isDouble = false;
-        Integer isDoubleIndex = 0, isTripleIndex = 0;
+    public boolean checkForFullHouse() {
+        boolean isADouble = false, isATriple = false, isFullHouse = false;
         for(int i = 1; i < 7; i++) {
             if (dice[i] == 3) {
-                isTriple = true;
+                isATriple = true;
                 isTripleIndex = i;
             }
             if (dice[i] == 2){
-                isDouble = true;
+                isADouble = true;
                 isDoubleIndex = i;
             }
         }
-        if (isTriple && isDouble) {
+        if (isATriple && isADouble) {
+            isFullHouse = true;
             unusedDice[isTripleIndex] -= 3;
             unusedDice[isDoubleIndex] -= 2;
             score += 1500;
         }
+        return isFullHouse;
     }
 
     /** Calls checkForOnes(), checkForFives(), checkForTriples(), checkForQuads(), 
@@ -267,7 +278,7 @@ public class Combo {
      * 
      * @return the meld score
     */
-    public Integer calculateScore() {
+    public void calculateScore() {
         score = 0;
         checkForFullHouse();
         checkForOnes();
@@ -283,6 +294,5 @@ public class Combo {
                 unusedDice[i] = 0;
             }
         }
-        return score;
     }
 }

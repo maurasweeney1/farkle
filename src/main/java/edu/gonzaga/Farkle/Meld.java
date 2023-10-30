@@ -9,7 +9,7 @@ public class Meld {
     private Integer meld[] = {0, 0, 0, 0, 0, 0, 0};
     /** instance of combo in order to call combo methods */
     private Combo combo = new Combo();
-
+    
     public Meld () {
         meldScore = 0;
     }
@@ -47,13 +47,20 @@ public class Meld {
         return meld[index];
     }
 
+    /** getter for the meldScore field
+     * 
+     * @return meldScore field
+    */
     public Integer getMeldScore() {
         return meldScore;
     }
 
-
-    public Integer returnMeld(Integer index) {
-        return combo.returnComboArr(index);
+    /** setter for the meldScore field
+     * 
+     * @return updates meldScore field
+    */
+    public void setMeldScore(Integer meldScore) {
+        this.meldScore = meldScore;
     }
     
     /** Returns the size of the meld array
@@ -73,7 +80,8 @@ public class Meld {
         if (this.combo == null) {
             return 0;
         }
-        meldScore = combo.calculateScore();
+        combo.calculateScore();
+        meldScore = combo.getScore();
         return meldScore;
     }
 
@@ -94,3 +102,4 @@ public class Meld {
         return badMeld;
     }
 }
+
